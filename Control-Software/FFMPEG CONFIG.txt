@@ -1,0 +1,29 @@
+
+
+ffmpeg -c:v copy \ 
+ -c:a copy \
+ -fflags nobuffer \
+ -loglevel debug \
+ -rtsp_transport tcp \
+ -i rtsp://127.0.0.1:8554/myvlc \
+
+ -copyts \
+ -vcodec copy \
+ -movflags frag_keyframe+empty_moov \
+ -an \
+ -hls_flags delete_segments+append_list \
+ -f hls \
+ -hls_time 2 \
+ -hls_list_size 8 \
+ -start_number 1 \
+ -hls_segment_type mpegts \
+ -hls_segment_filename '%d.ts' \	
+  index.m3u8
+
+
+Unten hat funktioniert!
+
+
+
+
+ffmpeg -i rtsp://127.0.0.1:8554/myvlc -fflags flush_packets -max_delay 5 -flags -global_header -hls_time 5 -hls_list_size 3 -vcodec copy -y index.m3u8

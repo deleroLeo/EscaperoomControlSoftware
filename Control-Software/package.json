@@ -1,0 +1,21 @@
+{
+  "name": "xv-consp-server",
+  "version": "1.0.0",
+  "description": "socket.io server to join a controller page and two user pages together and handle communication",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Demian",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "moment": "^2.29.1",
+    "joi": "^17.4.2",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

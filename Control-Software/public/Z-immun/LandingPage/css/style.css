@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+
+	--dark-color-a: #005b97;
+	--dark-color-b: #e24800;
+	--dark-color-c: #222C2A;
+	--light-color: #e6e9ff;
+	--success-color: #5cb85c;
+	--error-color: #d9534f;
+
+
+    --clr-primary-300: #F7F4EA;
+    /* --clr-primary-400: #47434C; */
+    /* zuvor 777777 */
+    --clr-neutral-100: #FFF;
+    --clr-primary-600: #005b97;
+    --clr-primary-900: #222C2A;
+    /* --clr-polizei-bg: #4375a3; */
+    
+    --clr-hint: #178d96;
+
+    /* --clr-msg-you: #99D6FF; */
+    --clr-btn-regular: #067bc2;
+
+    --clr-btn-hover: #84bcda;
+    /* --clr-btn-hover: #bce2fcfb; */
+    --clr-msg-they: #F7F4EA;
+    
+	--clr--blue: #29ABE2;
+    --clr--orange: #F7B35B;
+	--clr--orange-matt: #FEF5EA;
+	
+	--clr-sct-head: #FCE6CA;
+	
+	
+    /* fonts */
+    --ff-primary: 'fira-sans-regular', sans-serif;
+    --ff-accent: 'fira-sans-medium', sans-serif;
+
+	--brdr-rad: 10px
+
+}
+
+
+/* ----------  General Code  ---------- */
+body{
+    margin: 0;
+    margin-top: 5px;
+    font-family: var(--ff-primary);
+    font-size: 12px;
+	margin-bottom: 5px;
+	background-color: var(--clr--blue);
+}
+
+h2{
+	text-align: center;
+	font-family: var(--ff-primary);
+	font-size: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.btn {
+	cursor: pointer;
+	padding: 5px 15px;
+	background: var(--clr--blue);
+	color: var(--dark-color-c);
+	border-radius: 5px;
+	border: solid 2px;
+
+	font-family: var(--ff-primary-600);
+    font-weight: 500;
+	font-size: 17px;
+}
+
+.section-head {
+	text-align: center;
+	
+	background-color: var(--clr-sct-head);
+	margin:-5px -20px;
+	padding: 2px 10px;
+	border-radius: var(--brdr-rad) var(--brdr-rad) 0 0;
+	top:0;
+	
+}
+
+.section {
+
+	
+	background-color: var(--clr--orange-matt);
+	
+	border: 2px solid var(--clr-primary-900);
+	border-radius: var(--brdr-rad);
+	
+	padding: 5px 20px;
+	overflow-wrap: break-word;
+
+}
+/* Join Page */
+.join-container {
+	max-width: 500px;
+	margin: 80px auto;
+}
+
+.join-header {
+	text-align: center;
+	padding: 20px;
+	background: var(--clr-sct-head);
+	border-top-left-radius: var(--brdr-rad);
+	border-top-right-radius: var(--brdr-rad);
+	border: 2px solid var(--clr-primary-900);
+	border-bottom: 0px;
+}
+
+.join-main {
+	padding: 30px 40px;
+	background: var(--clr--orange-matt);
+	border: 2px solid var(--clr-primary-900);
+	border-top: 0px;
+	border-bottom-left-radius: var(--brdr-rad);
+	border-bottom-right-radius: var(--brdr-rad);
+}
+
+.join-main p {
+	margin-bottom: 20px;
+}
+
+.join-main .form-control {
+	margin-bottom: 20px;
+}
+
+.join-main label {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 16px;
+	user-select: none;
+}
+
+.join-main input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+	margin-bottom: 0.9em;
+}
+
+.join-main select {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main .btn {
+	margin-top: 20px;
+	width: 100%;
+}
+
+
+.hidden{
+	display: none;
+}

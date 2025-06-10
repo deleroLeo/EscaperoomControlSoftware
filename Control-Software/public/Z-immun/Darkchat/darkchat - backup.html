@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- jquery einbinden -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Socket implementation -->
+    <!-- <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script> -->
+    <script defer src="darkchat.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=2.0)">
+
+
+    <meta charset="utf-8">
+    <!--- <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+
+    <title>DARKCHAT</title>
+
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body bgcolor="002020">
+    <!--<table height="1500px" width="960px">-->
+    <table height="95%" width="1020px">
+        <!-- tbody ergänzt -->
+        <tbody>
+            <tr height="140">
+                <td c bgcolor="003535" align="middle" valign="middle" height="140">
+                    <img src="Grafiken/LogoSchriftzug.gif" width="826" height="77">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <section id="section1" class="ChatContainer hidden"><iframe width="100%" class="ChatContainer" id="chat1"
+                            src="chatauswahl.html" name="chat1"></iframe></section>
+                    <section id="section2" class="ChatContainer hidden"><iframe width="100%" class="ChatContainer" id="chat2"
+                            src="chatauswahl_2.html" name="chat2"></iframe></section>
+                    <section id="section3" class="ChatContainer hidden"><iframe width="100%" class="ChatContainer" id="chat3"
+                            src="chatauswahl_3.html" name="chat3"></iframe></section>
+                </td>
+            </tr>
+            <tr height="145" bgcolor="003535">
+                <td valign="middle" height="145">
+                    <a onClick="chat_back()"><img src="Grafiken/chatfeld-unten_pfeil_ani.gif" alt="chatfeld" width="115"
+                            height="135"></a><img id="trigger-modal" src="Grafiken/chatfeld-unten_eingabefeld.gif"
+                        alt="chatfeld" width="845" height="135">
+                    <!-- <a href="chatauswahl.html" target="textfeld"><img src="Grafiken/chatfeld-unten_zurueck.gif" alt="chatfeld" width="115" height="135"></a><img id="trigger-modal" src="Grafiken/chatfeld-unten_eingabefeld.gif" alt="chatfeld" width="845" height="135"> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="notification-container">
+        <div><p class="notification hidden" id="network-notify">&#9888; Verbindungsfehler!</p></div>
+    </div>
+
+    <div class="hidden"><audio id="sfx-chat-update" src="Cellph.wav" preload="auto" autostart="0"></audio></div>
+
+    <div id="overlay"></div>
+    <div id="modal">
+        <!-- hier bitte deinen Text einfügen den du anzeigen willst -->
+        <p>Bitte loggen sie sich<br>aus Sicherheitsgründen neu an!</p>
+        <button>x</button>
+    </div>
+
+    <!-- hier CSS Anpassen, sodass das Overlay so aussieht wie du möchtest -->
+    <style>
+        body {
+            position: relative;
+        }
+
+        #overlay,
+        #modal {
+            display: none;
+            position: fixed;
+        }
+
+        #overlay {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #modal {
+            width: 50%;
+            top: 20%;
+            left: 20%;
+            background: white;
+            z-index: 2;
+            padding: 20px;
+            font-size: 40px;
+        }
+
+        #modal button {
+            background: blue;
+            color: #fff;
+            padding: 25px;
+            outline: none;
+            border: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 40px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+
+</html>

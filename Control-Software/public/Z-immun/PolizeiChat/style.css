@@ -1,0 +1,267 @@
+/* Variablen für gleichmäßige Farben. gerne anpassen. größere Zahl = dunkler */
+:root {
+    --clr-primary-300: #F7F4EA;
+    --clr-primary-400: #47434C;
+    /* zuvor 777777 */
+    
+    --clr-neutral-100: #FFF;
+
+    --clr-primary-600: #005b97;
+    
+    --clr-primary-900: #222C2A;
+
+    --clr-polizei-bg: #0055a5;
+
+    --clr-msg-you: #99D6FF;
+    --clr-msg-they: #F7F4EA;
+
+    
+    /* fonts */
+    --ff-primary: 'Roboto', sans-serif;
+    --ff-accent: serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body, h1, h2, h3, p {
+    margin: 0;
+}
+
+body{
+    background-color: #3a404c;
+    margin: 6px;
+}
+
+#notification-container {
+    position: fixed;
+    bottom: 5pt;
+    width: 100%;
+    z-index: 10;
+}
+.notification {
+    background-color: red;
+    color: white;
+    padding: 12px 25px;
+    width: fit-content;
+}
+p.notification{
+    margin: 5pt auto;
+}
+
+#sek-header{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+#header-image{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#pw-input-overlay{
+    position: absolute;
+    right: 0;
+    bottom: 8%;
+    max-width: 700px;
+}
+
+.chat-main {
+    font-family: var(--ff-primary);
+    font-weight: 400;
+    /* font-size: 1.3125rem; */
+    font-size: 1.125rem;
+    line-height: 1.6;
+    /* background-color: var(--clr-primary-300); */
+}
+
+h1, h2, h3 {
+    font-family: var(--ff-accent);
+    font-weight: 900;
+    line-height: 1;
+
+}
+
+
+input[type=text]{
+    font-size: 1.10rem;
+    padding: 5px 10px;
+    margin: 6px 0;
+    box-sizing: border-box;
+    width: min(80%, 30rem);
+}
+/* img{
+    display: block;
+    max-width: 20%;
+} */
+
+.msg-img{
+    max-width: min(100%, 40rem);
+    margin-inline: auto;
+}
+
+
+.text-center{
+    text-align: center;
+}
+
+.hidden{
+    display: none;
+}
+div.hidden{
+    display: none;
+}
+
+/*später checken , auch farben und so.*/
+header, section{
+    padding: 1rem 0;
+}
+
+.container{
+    margin-inline: auto;
+    /* width:min(90%, 70.5rem); */
+    width: 90%;
+}
+
+.bg-light {
+    background-color: var(--clr-primary-300);
+    color: var(--clr-primary-900);
+}
+
+.bg-contrast {
+    background-color: var(--clr-primary-400);
+}
+
+.bg-dark {
+    background-color: var(--clr-polizei-bg);
+    color: var(--clr-neutral-100);
+}
+
+.message{
+    padding: 0.5rem;
+    background-color: var(--clr-primary-300);
+    margin-bottom: 0.7rem;
+    width: fit-content;
+    /* min-width: fit-content; */
+    max-width: min(70%, 40rem);
+    
+    block-size: fit-content;
+    border-radius: 10px;
+    position: relative;
+    display: block;
+}
+
+.you{
+    margin-right: 0;
+    margin-left: auto;
+    background-color: var(--clr-msg-you);
+}
+.they{
+    background-color: var(--clr-msg-they);
+}
+
+p.you::before{
+    content: "Du";
+    color:var(--clr-primary-600);
+    font-family: var(--ff-accent);
+    display: block;
+    font-size: 1.1rem;
+}
+
+p.they::before{
+    content: "Polizeidirektion";
+    color:var(--clr-primary-600);
+    font-family: var(--ff-accent);
+    display: block;
+    font-size: 1.1rem;
+}
+
+#chat-verlauf{
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 1.5rem;
+}
+
+#chat-choices{
+    /* overflow: hidden; */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    min-height: 6rem;
+    z-index: 5;
+}
+
+#nav-bar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+.btn{
+    font-family: var(--ff-accent);
+    font-weight: 500;
+    /* font-size: 1.3rem; */
+    font-size: 1.0rem;
+    
+    background-color: #146aa0;
+    color: var(--clr-neutral-100);
+
+    
+    min-height: 3rem;
+    padding: 0.6em 1.0em;
+    margin-bottom: 0.7rem;
+    border-radius: 5px;
+    margin-inline: 0.5rem;
+   
+}
+
+#pwbtn{
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.25rem;
+}
+
+#loc-inp{
+    min-height: 2.5rem;
+    font-size: 1.2rem;
+    margin-left: 5rem;
+}
+
+#audio-rec{
+    border: 2px solid var(--clr-primary-900);
+    border-radius: 30px;
+}
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    align-items: center;
+    align-content: center;
+}
+#score-notify{
+    position:absolute;
+    left:50%;
+    transform: translate(-50%,0);
+    text-align: center;
+    z-index: 10;
+    padding: 0.8rem 1.0rem;
+    background-color: var(--clr-polizei-bg);
+    border-radius: 15px;
+    border: 2px solid;
+    border-color: #F7F4EA;
+}
+
+#score-text{
+    font-size: 2.2rem;
+    margin-inline: auto;
+    color:var(--clr-neutral-100);
+    /* position:absolute; */
+    /* left:50%; */
+    /* transform: translate(-50%,0); */
+}

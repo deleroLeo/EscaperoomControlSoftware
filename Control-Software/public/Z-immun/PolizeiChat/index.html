@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<!-- Version 22 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style content -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- Scripts (more at the bottom of the file.) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="script.js"></script>
+
+    <title>SEK Einsatzzentrale</title>
+</head>
+
+<body>
+    <!-- SEK Header mit Ortseingabe -->
+    <header id="sek-header">
+        <img id="header-image" src="Grafik/SEK-WS-oben.jpg" alt="sek header">
+        <div id="pw-input-overlay">
+            <!-- <button style="height:  50px; width: 120px; vertical-align:middle; font-size:28px;" id="pwbtn" type="button" name="pwbutton" onClick="checkMainPW()">senden</button> -->
+            <!-- <input style="height: 50px; width: 400px; font-size:28px;" id="zielgebiet" type="text" name="coord2" value=""> -->
+            <input id="zielgebiet" type="text" name="coord2" value="">
+            <button id="pwbtn" onClick="checkMainPW()">senden</button>
+        </div>
+    </header>
+
+    <!-- Chatverlauf -->
+    <section id="chat-verlauf" class="chat-main">
+        <div class="container">
+
+            <!-- Neue Nachrichten werden hier erscheinen. (Before #typing) -->
+
+            <div id="typing" class="message they hidden">
+                <p id="typing-anim" class="they">...</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="score-notify" class="hidden">
+        <h2 id="score-text">+ XX Punkte!</h2>
+    </div>
+
+    <!-- Chat Antworten -->
+    <section id="chat-choices" class="bg-light">
+
+        <div class="container flex-container">
+            <!-- <p>this is the chat selection</p> -->
+            <div id="q0" class="flex-container">
+                <button class="btn" id="btn0_1" onclick="clicked0_1()">Alles klar!</button>
+            </div>
+            <div id="q1" class="hidden flex-container">
+                <button class="btn" id="btn1_1" onclick="clicked1_1()">Jawohl</button>
+            </div>
+            <div id="q2" class="hidden flex-container">
+                <button class="btn" id="btn2_1" onclick="clicked2_1()">Einzelperson</button>
+                <button class="btn" id="btn2_2" onclick="clicked2_2()">Mehrere Personen</button>
+            </div>
+            <!-- nur bei falscher Antwort in Q2 -->
+            <div id="q3" class="hidden flex-container">
+                <button class="btn" id="btn3_1" onclick="clicked3_1()">Entschuldigung</button>
+            </div>
+            <div id="q4" class="hidden flex-container">
+                <button class="btn" id="btn4_1" onclick="clicked4_1()">Z</button>
+                <button class="btn" id="btn4_2" onclick="clicked4_2()">Jonas</button>
+                <button class="btn" id="btn4_3" onclick="clicked4_3()">Zoey</button>
+                <button class="btn" id="btn4_4" onclick="clicked4_4()">Sarah Sand</button>
+                <button class="btn" id="btn4_5" onclick="clicked4_5()">Keine Ahnung</button>
+            </div>
+            <div id="q5" class="hidden flex-container">
+                <button class="btn" id="btn5_1" onclick="clicked5_1()">Vertrieb des Medikaments</button>
+                <button class="btn" id="btn5_2" onclick="clicked5_2()">Entwicklung des Medikaments</button>
+                <button class="btn" id="btn5_3" onclick="clicked5_3()">Influenzer*in für das Medikament</button>
+                <button class="btn" id="btn5_4" onclick="clicked5_4()">Keine Verbindung zur Person</button>
+            </div>
+            <div id="q6" class="hidden flex-container">
+                <button class="btn" id="btn6_1" onclick="clicked6_1()">Better Fly Corporation (BFC)</button>
+                <button class="btn" id="btn6_2" onclick="clicked6_2()">Sand Pharmaceuticals</button>
+                <button class="btn" id="btn6_3" onclick="clicked6_3()">Café Sommerfreude</button>
+            </div>
+            <div id="q7" class="hidden flex-container">
+                <button class="btn" id="btn7_1" onclick="clicked7_1()">OK!</button>
+            </div>
+            <div id="q8" class="hidden flex-container">
+                <button class="btn" id="btn8_1" onclick="clicked8_1()">Wir kümmern uns!</button>
+            </div>
+            <div id="q9" class="hidden flex-container">
+                <button class="btn" id="btn9_1" onclick="clicked9_1()">Keine ist geeignet!</button>
+                <button class="btn" id="btn9_2" onclick="clicked9_2()">Nero</button>
+                <button class="btn" id="btn9_3" onclick="clicked9_3()">Drunkenboy</button>
+                <button class="btn" id="btn9_4" onclick="clicked9_4()">Snoopy257</button>
+                <button class="btn" id="btn9_5" onclick="clicked9_5()">Meli_22</button>
+                <button class="btn" id="btn9_6" onclick="clicked9_6()">Z</button>
+            </div>
+            <!-- Pfad 1 -->
+            <div id="q10" class="hidden flex-container">
+                <button class="btn" id="btn10_1" onclick="clicked10_1()">Das stimmt.</button>
+            </div>
+            <!-- Pfad 2 -->
+            <div id="q11" class="hidden flex-container">
+                <button class="btn" id="btn11_1" onclick="clicked11_1()">Verstanden</button>
+            </div>
+            <div id="q12" class="hidden flex-container">
+                <button class="btn" id="btn12_1" onclick="clicked12_1()">Sehr gut!</button>
+            </div>
+
+            <div id="q13" class="hidden flex-container">
+                <button class="btn" id="btn13_1" onclick="clicked13_1()">Kündigung Arbeit</button>
+                <button class="btn" id="btn13_2" onclick="clicked13_2()">Ausgrenzung Arbeit</button>
+                <button class="btn" id="btn13_3" onclick="clicked13_3()">Gesundheitszustand</button>
+                <button class="btn" id="btn13_4" onclick="clicked13_4()">Zuspruch im Darkchat</button>
+                <button class="btn" id="btn13_5" onclick="clicked13_5()">nicht eindeutig</button>
+            </div>
+            <div id="q14" class="hidden flex-container">
+                <button class="btn" id="btn14_1" onclick="clicked14_1()">Heißluftballons</button>
+                <button class="btn" id="btn14_2" onclick="clicked14_2()">Better Fly Corp</button>
+                <button class="btn" id="btn14_3" onclick="clicked14_3()">Sand Pharmaceuticals</button>
+                <button class="btn" id="btn14_4" onclick="clicked14_4()">Cicero</button>
+                <button class="btn" id="btn14_5" onclick="clicked14_5()">T S Mauf</button>
+                <button class="btn" id="btn14_6" onclick="clicked14_6()">Z (Jonas)</button>
+            </div>
+
+            <div id="q15" class="hidden flex-container">
+                <button class="btn" id="btn15_1" onclick="clicked15_1()">Quarzsand</button>
+                <button class="btn" id="btn15_2" onclick="clicked15_2()">Zerum Forte</button>
+                <button class="btn" id="btn15_3" onclick="clicked15_3()">Ballonseide-Hersteller</button>
+                <button class="btn" id="btn15_4" onclick="clicked15_4()">Social Media</button>
+                <button class="btn" id="btn15_5" onclick="clicked15_5()">Medizinische Statistiken</button>
+                <button class="btn" id="btn15_6" onclick="clicked15_6()">Baby Boomer</button>
+                <button class="btn" id="btn15_7" onclick="clicked15_7()">Generation Z</button>
+            </div>
+
+            <!-- <div id="q15" class="hidden flex-container" style="justify-content: space-around;">
+                <input id="loc-inp" type="text" name="location" value="">
+                <button id="pwbtn" class="btn" type="button" name="pwbutton" onclick="checkPW()">absenden</button>
+            </div> -->
+            <br>
+            <div id="chat-form-container">
+                <form id="chat-form">
+                    <input id="msg" type="text" placeholder="Frage stellen..." required autocomplete="off" />
+                    <button class="btn"><i class="fas fa-paper-plane"></i> Senden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- <footer>
+        <div class="footer container">
+            <p>impressum und so hey</p>
+        </div>
+    </footer> -->
+
+    <section class="resources hidden">
+        <!-- Audio source: https://freesound.org/people/Annyew/sounds/580115/ -->
+        <audio id="sfx-notify" src="sounds/notification.wav" preload="auto" autostart="0"></audio>
+        <audio id="sfx-sent" src="sounds/sent-msg.wav" preload="auto" autostart="0"></audio>
+    </section>
+
+    <div id="notification-container">
+        <div><p class="notification hidden" id="network-notify">&#9888; Verbindungsfehler!</p></div>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+
+</html>
