@@ -18,6 +18,12 @@ const botName = 'Server';
 const SETTINGS_FILE = path.join(__dirname, "settings" ,'settings');
 
 
+//To do: Struktur soweit verstehen, dass nicht nur für jeden Raum bei Z-Immun ein unterschiedlicher User angelegt wird, 
+//sondern dass für jeden Escaperoom (zumindest mal Labor und Z-Immun) ein Chatraum angelegt wird. 
+
+//TO do 2: lokales Konzept macht das mit den unterschiedlichen Räumen unwichtig. Das ersetzen durch unterschiedliche Escaperäume 
+//==> Z-Immun Landing-Page kann abgeschafft werden.
+
 
 // Map with all the game rooms' status variables.
 var statusMap = new Map();
@@ -28,17 +34,19 @@ function getCurrentStatus(room) {
         statusMap.set(room, 1);
     }
     return statusMap.get(room);
-}
+} 
+
 
 function updateStatus(room, newStatus) {
     statusMap.set(room, newStatus);
 }
 
 
-function import_settings(Eroom) {
+function import_settings(room) {
     if (fs.existsSync(SETTINGS_FILE+Eroom+".json")) {
-            const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+Eroom+".json"));
-            
+            const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
+//Problem!!!!!!!!!!!!!!
+// Look for something like settings.values that outputs alle the values in order in a List without needing the keys
             return [settings["sender-mail"], settings["sender-password"], settings["receiver-mail"], settings["receiver-password"], settings["ip-spycam"], settings["ip-gamemastercam"]];
         
     } else {
@@ -49,12 +57,12 @@ function import_settings(Eroom) {
 
 // morse status functions
 var morseMap = new Map();
-function getMorseStatus(room) {
+/*function getMorseStatus(room) {
     if (!morseMap.has(room)) {
         return false;
     }
     return morseMap.get(room);
-}
+}*/
 
 function updateMorseStatus(room, newStatus) {
     morseMap.set(room, newStatus);
@@ -62,12 +70,12 @@ function updateMorseStatus(room, newStatus) {
 
 // cam status functions
 var camMap = new Map();
-function getCamStatus(room) {
+/*function getCamStatus(room) {
     if (!camMap.has(room)) {
         return false;
     }
     return camMap.get(room);
-}
+}*/
 
 function updateCamStatus(room, newStatus) {
     camMap.set(room, newStatus);
@@ -99,16 +107,18 @@ io.on('connection', socket => {
         socket.join(user.room);
 
         // Send a server-log to the controller on connection. Potentially useful for displaying the rules.
-        socket.emit('server-log', formatMessage(botName, `Willkommen zum Raum ${user.room}!`));
-        if (user.username === "Controller") {
-            socket.emit('server-log', formatMessage(botName, `Starten Sie den Countdown sobald die Gruppe den Polizeichat geöffnet hat. Der Countdown ist nur ein Anhaltspunkt und hat keinen Effekt auf den Spielverlauf.`));
+        //socket.emit('server-log', formatMessage(botName, `Willkommen zum Raum ${user.room}!`));
+        if (user.room =="Z-immun"){
+            if (user.username === "Controller") {
+                socket.emit('server-log', formatMessage(botName, `Starten Sie den Countdown sobald die Gruppe den Polizeichat geöffnet hat. Der Countdown ist nur ein Anhaltspunkt und hat keinen Effekt auf den Spielverlauf.`));
+            }
+
+            // Notifiy the controller via a server-log when a user connects to the room.
+            socket.broadcast.to(user.room).emit('server-log', formatMessage(botName, `${user.username} hat den Raum betreten.`));
+
+            // Share the current room's status with the new user.
+            io.to(user.room).emit('status', getCurrentStatus(user.room));
         }
-
-        // Notifiy the controller via a server-log when a user connects to the room.
-        socket.broadcast.to(user.room).emit('server-log', formatMessage(botName, `${user.username} hat den Raum betreten.`));
-
-        // Share the current room's status with the new user.
-        io.to(user.room).emit('status', getCurrentStatus(user.room));
 
         // Send User and Room info.
         io.to(user.room).emit('roomUsers', {
@@ -127,7 +137,7 @@ io.on('connection', socket => {
                 updateStatus(user.room, newStatus);
 
                 io.to(user.room).emit('status', newStatus);
-                io.to(user.room).emit('server-log', formatMessage(botName, `Darkchat Status geupdated. Neuer Status: ${newStatus}`));
+                io.to(user.room).emit('server-log', formatMessage(botName, `Status geupdated. Neuer Status: ${newStatus}`));
             } else {
                 io.to(user.room).emit('server-log', formatMessage(botName, 'Error status does not match input requirements'));
             }
@@ -135,16 +145,16 @@ io.on('connection', socket => {
     });
 
     // Listen for Controller inputs for Cam and Morse Status
-    socket.on('send-morse', (Eroom) => {
+    socket.on('send-morse', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user) {
+        if (user && room =="Z-immun") {
             var spawn = require("child_process").spawn;
 
 
             var subject = "Morsecode gehackt";
             var file_path= "10_morsecode.wav";
             var message = "Schaut mal ... dieses Audiofile konnte ich noch aus einem Privatchat abfangen. Eventuell hilft euch das weiter :-)  Grüße Ein Verbündeter";
-            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(Eroom);
+            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(room);
             const shellcode = `from controll_Software import send_mail;send_mail("${receiver_mail}", "${sender_mail}", "${sender_password}", "${subject}", r"${message}", file_path = "${file_path}")`
 
 
@@ -163,15 +173,15 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('send-cam', (Eroom) => {
+    socket.on('send-cam', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user) {
+        if (user && user.room =="Z-immun") {
             var spawn = require("child_process").spawn;
 
 
             var subject = "Achtung!";
             var message = "Achtung Leute.... diese Bilder hier konnte ich von Privatchats abfangen. Irgendwo bei euch ist ne Spionagecam versteckt... Grüße: Ein Verbündeter";
-            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(Eroom);
+            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(user.room);
             const shellcode = `from controll_Software import send_mail;send_mail("${receiver_mail}", "${sender_mail}", "${sender_password}", "${subject}", r"${message}",  pic = True, adress = "${ip_spycam}")`
 
 
@@ -189,13 +199,13 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('mail-reset', (Eroom) => {
+    socket.on('mail-reset', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user) {
+        if (user && user.room =="Z-immun") {
             var spawn = require("child_process").spawn;
 
 
-            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(Eroom);
+            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(user.room);
             const shellcode = `from controll_Software import reset;reset("${receiver_mail}", "${sender_mail}", "${receiver_password}","${sender_password}")`
 
 
@@ -214,13 +224,15 @@ io.on('connection', socket => {
     });
 
 
-    socket.on('startStreams', (Eroom) =>  {
+    socket.on('startStreams', (room) =>  {
         const user = getCurrentUser(socket.id);
         if (user) {
+            //Eventuell kann man hier die Streams auch durch das import_settings ding cooler machen indem man durch eine Liste iteriert
+            //und für jedes Listen-Item nen Kamera-Stream staret oder so
             var spawn1 = require("child_process").spawn;
             var spawn2 = require("child_process").spawn;
 
-            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(Eroom);
+            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(user.room);
             const shellcode1 = `from video-stream import StartStream; StartStream("${ip_spycam}", "public/Controller/Stream1/output.m3u8")`;
             const shellcode2 = `from video-stream import StartStream; StartStream("${ip_gamemastercam}", "public/Controller/Stream2/output.m3u8")`;
 
@@ -260,26 +272,24 @@ io.on('connection', socket => {
     
 
 
-    socket.on('settings-save', ({Eroom, settings}) =>{
-        console.log(SETTINGS_FILE+Eroom+".json");
+    socket.on('settings-save', ({room, settings}) =>{
+        
+        const user = getCurrentUser(socket.id);
 
-
-        fs.writeFileSync(SETTINGS_FILE+Eroom+".json", JSON.stringify(settings, null, 2));
+        fs.writeFileSync(SETTINGS_FILE+room+".json", JSON.stringify(settings, null, 2));
         
         // Log success
-        console.log('Settings saved:', settings);
+        
        
 
     });
 
-    socket.on('settings-load', (Eroom) =>{
-        if (fs.existsSync(SETTINGS_FILE+Eroom+".json")) {
-            console.log("loading in progress")
-            const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+Eroom+".json"));
+    socket.on('settings-load', (room) =>{
+        if (fs.existsSync(SETTINGS_FILE+room+".json")) {
+            const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
             const user = getCurrentUser(socket.id);
             if (user) {
                 io.to(user.room).emit('settingLog', formatMessage(user.username, settings));
-                console.log("settings are beeing sent to client")
         }
         } else {
             console.error("no settings found...");
@@ -290,7 +300,7 @@ io.on('connection', socket => {
     // Listen for Polizeichat choices
     socket.on('chatLog', msg => {
         const user = getCurrentUser(socket.id);
-        if (user) {
+        if (user && user.room =="Z-immun") {
             io.to(user.room).emit('policeLog', formatMessage(user.username, msg));
         }
     });

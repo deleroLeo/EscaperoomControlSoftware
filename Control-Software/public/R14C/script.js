@@ -13,16 +13,16 @@ const btn_06 = document.getElementById('bombe');
 var currentStatus = 1;
 
 
-const Eroom = "R14C";
-
 // Load UserData from localStorage
-let currUsr = localStorage.getItem("username");
+//let currUsr = "localStorage.getItem("username");"
+
+let currUsr = "Controller";
 let currRoom = localStorage.getItem("room");
 // if issues come up with the data, clear it and redirect back to the login page
-if (!(currUsr && currRoom)) {
+/*if (!(currUsr && currRoom)) {
     localStorage.clear();
     window.open("http://abasan.de/", "_self");
-}
+}*/
 // Set username and room to the loaded data.
 const { username, room } = { username: currUsr, room: currRoom };
 
@@ -35,7 +35,7 @@ var disconnectCounter = 0;
 // Join chatroom on connection.
 socket.on('connect', () => {
     socket.emit('joinRoom', { username, room });
-    socket.emit('startStreams', (Eroom));
+    socket.emit('startStreams', (room));
     /* console.log('connecting'); */
     if (socket.connected) {
         let notify = document.getElementById("network-notify");
@@ -365,17 +365,12 @@ function setting_load(){
 	socket.emit('settings-load', Eroom);
 
     socket.on('settingLog', (settings) => {
-        console.log("RECEIVER-Mail: ", settings.text["receiver-mail"]);
-        
-    
-
+        	
+	document.getElementById("Cam1").value = settings.text["Cam1"];
+    document.getElementById("Cam2").value = settings.text["Cam2"];
+    document.getElementById("Cam3").value = settings.text["Cam3"];
+    document.getElementById("Cam4").value = settings.text["Cam4"];
 	
-	document.getElementById("sender-password").value = settings.text["sender-password"];
-	document.getElementById("sender-mail").value = settings.text["sender-mail"];
-	document.getElementById("receiver-mail").value = settings.text["receiver-mail"];
-	document.getElementById("receiver-password").value = settings.text["receiver-password"];
-	document.getElementById("ip-spycam").value = settings.text["ip-spycam"];
-	document.getElementById("ip-gamemastercam").value = settings.text["ip-gamemastercam"];
 
     });
 }

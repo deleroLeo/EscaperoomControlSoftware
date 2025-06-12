@@ -6,8 +6,8 @@ const dataVersion = "0.11";
 function sendData(username) {
     //document.getElementById('username').value = username;
     //set values
-    let currentRoom = document.getElementById("room").value;
-    
+    //let currentRoom = document.getElementById("room").value;
+    //Room kann hier rausgenommen werden, da eigentlich nur noch der Username (Also ob Darkchat/Controller/Polizeichat) wichtig ist.
     localStorage.setItem("version", dataVersion);
     localStorage.setItem("username", username);
     localStorage.setItem("room", currentRoom);

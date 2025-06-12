@@ -5,7 +5,6 @@ function sendData() {
     //set values
     let currentRoom = document.getElementById("room").value;
     localStorage.setItem("room", currentRoom);
-    console.log("ROOM: ", currentRoom)
     tryRedirect();
         
     

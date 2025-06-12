@@ -126,7 +126,7 @@
 			<!--<p class="inline">Countdown</p>-->
             <div id="countdown-div">
                 
-                <input type="number" name="minutes" id="cd-minutes" min="0" value="90" class="timer">
+                <input type="number" name="minutes" id="cd-minutes" min="0" value="60" class="timer">
                 <input type="number" name="seconds" id="cd-seconds" min="0" max="59" value="0" class="timer">
                 <button class="btn small" id="play-btn" onclick="toggleCountdown()">&#9658;</button>
                 <button class="btn small" id="stop-btn" onclick="resetCountdown()">&#8635;</button>
@@ -164,26 +164,6 @@
 			</div>
             
         </div>
-
-        <!-- Chat Section: Communication with Server and Players -->
-        <div class="chat-section">
-            <section id="chat">
-				<div class="section-head">
-					<h2>Nachrichten</h2>
-				</div>
-                <div id="chat-window">
-                    <div id="chat-log">
-						
-                    </div>
-                </div>
-                <div id="chat-form-container">
-                    <form id="chat-form">
-                        <input class = "chat-input" id="msg" type="text" placeholder="Chatnachricht..." required autocomplete="off" />
-                        <button class="btn small"><i class="fas fa-paper-plane"></i></button>
-                    </form>	
-                </div>
-            </section>
-        </div>
 		
 		<!-- Status section -->
 		
@@ -194,18 +174,18 @@
 			</div>
 
 			
-			<h2>E-Mail status</h2>
+			<h2>Nebel</h2>
 			<div class="btn-container">
-				<button id="photo-btn" class="btn status" onclick="sendSpyCamPic()">SpyCam Foto</button>
-				<button id="morse-btn" class="btn status" onclick="sendMorseCode()">Morsecode</button>
-                <button id="mail-reset-btn" class = "btn status" onclick = "resetMails()">Mail-Reset</button>	
+				<button id="photo-btn" class="btn status" onclick="">Nebelmaschine</button>
+				<button id="morse-btn" class="btn status" onclick="">Nebel-Boxen</button>
+                <button id="mail-reset-btn" class = "btn status" onclick = "">Lüftung</button>	
 			</div>
 			
-			<h2>Darkchat status</h2>
+			<h2>Ambiente</h2>
 			<div class="btn-container">
-				<button class="btn status" id="start_02" onclick="updateStatus(1)">Spielstart</button> 
-				<button class="btn status" id="drohung_02" onclick="updateStatus(2)">Wir beobachten euch</button>
-				<button class="btn status" id="bombe_02" onclick="updateStatus(3)">Bombe gescheitert</button>
+				<button class="btn status" id="start_02" onclick="">Licht</button> 
+				<button class="btn status" id="drohung_02" onclick="">Geräusche</button>
+				<button class="btn status" id="bombe_02" onclick="">Rütteln</button>
 			</div>
 			
 			
@@ -229,35 +209,24 @@
 		<p class="close" onclick="settings(true)">×</p>
 
 		<form class="setting-form" id="settings-form">
-				<p class ="full-width settings-headline">Spielleitungs-Mail:</p>
-				<div>
-				<label class = "settings-label " for="sender-mail">Mailadresse:</label>
-				<input class = "settings-input " name = "sender-mail" id="sender-mail" type="text" placeholder="Spielleitungs-Mail" required autocomplete="off" />
-				</div>
-				<div>
-				<label class = "settings-label " for="sender-password">Passwort:</label>
-				<input class = "settings-input " name="sender-password" id="sender-password" type="text" placeholder="Spielleitungs-Mail-Passwort" required autocomplete="off" />
-				</div>
-				
-				<p class ="full-width settings-headline">Spieler-Mail:</p>
-				<div>
-				<label class = "settings-label " for="receiver-mail">Mailadresse:</label>
-				<input class = "settings-input " name = "receiver-mail" id="receiver-mail" type="text" placeholder="Spieler-Mail" required autocomplete="off" />
-				</div>
-				<div>
-				<label class = "settings-label " for="receiver-password">Passwort:</label>
-				<input class = "settings-input " name = "receiver-password" id="receiver-password" type="text" placeholder="Spieler-Mail-Passwort" required autocomplete="off" />
-				</div>
-			
 				<p class ="full-width settings-headline">Kamera-Adressen:</p>
 				<div>
-				<label class = "settings-label " for="ip-spycam">Adresse Spycam:</label>
-				<input class = "settings-input " name = "ip-spycam" id="ip-spycam" type="text" placeholder="Web-Adresse Spycam" required autocomplete="off" />
+				<label class = "settings-label " for="Cam1">Cam 1 (Mit Audio):</label>
+				<input class = "settings-input " name = "Cam1" id="Cam1" type="text" placeholder="Web-Adresse Camera 1" required autocomplete="off" />
 				</div>
 				<div>
-				<label class = "settings-label " for="ip-gamemastercam">Adresse Spielleitungscam:</label>					
-				<input class = "settings-input " name = "ip-gamemastercam" id="ip-gamemastercam" type="text" placeholder="Web-Adresse Spielleitungscam" required autocomplete="off" />
+				<label class = "settings-label " for="Cam2">Adresse Cam 2:</label>					
+				<input class = "settings-input " name = "Cam2" id="Cam2" type="text" placeholder="Web-Adresse Camera 2" required autocomplete="off" />
 				</div>
+                <div>
+				<label class = "settings-label " for="Cam3">Cam 3</label>
+				<input class = "settings-input " name = "Cam3" id="Cam3" type="text" placeholder="Web-Adresse Camera 3" required autocomplete="off" />
+				</div>
+				<div>
+				<label class = "settings-label " for="Cam4">Cam 4</label>					
+				<input class = "settings-input " name = "Cam4" id="Cam4" type="text" placeholder="Web-Adresse Camera 4" required autocomplete="off" />
+				</div>
+
 		<div class="centered full-width">
 			<button type = "submit" id = "setting-submit" class = "btn submit" >Submit</button>
 		</div>

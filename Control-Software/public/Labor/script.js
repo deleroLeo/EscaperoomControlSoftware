@@ -16,13 +16,14 @@ var currentStatus = 1;
 const Eroom = "Labor";
 
 // Load UserData from localStorage
-let currUsr = localStorage.getItem("username");
+//let currUsr = localStorage.getItem("username");
+let currUsr = "Controller";
 let currRoom = localStorage.getItem("room");
 // if issues come up with the data, clear it and redirect back to the login page
-if (!(currUsr && currRoom)) {
+/*if (!(currUsr && currRoom)) {
     localStorage.clear();
     window.open("http://abasan.de/", "_self");
-}
+}*/
 // Set username and room to the loaded data.
 const { username, room } = { username: currUsr, room: currRoom };
 
@@ -35,7 +36,7 @@ var disconnectCounter = 0;
 // Join chatroom on connection.
 socket.on('connect', () => {
     socket.emit('joinRoom', { username, room });
-    socket.emit('startStreams', (Eroom));
+    socket.emit('startStreams', (room));
     /* console.log('connecting'); */
     if (socket.connected) {
         let notify = document.getElementById("network-notify");
