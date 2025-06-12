@@ -43,7 +43,7 @@ function updateStatus(room, newStatus) {
 
 
 function import_settings(room) {
-    if (fs.existsSync(SETTINGS_FILE+Eroom+".json")) {
+    if (fs.existsSync(SETTINGS_FILE+room+".json")) {
             const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
 //Problem!!!!!!!!!!!!!!
 // Look for something like settings.values that outputs alle the values in order in a List without needing the keys
