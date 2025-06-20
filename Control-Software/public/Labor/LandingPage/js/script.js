@@ -20,14 +20,12 @@ function sendData(username) {
 function tryRedirect() {
     let username = localStorage.getItem("username");
     switch (username) {
-        case "Darkchat":
-            window.open("Darkchat/darkchat.html", "_self");
-            break;
+
         case "Spieler":
-            window.open("PolizeiChat/index.html", "_self");
+            window.open("SpielerChat/index.html", "_self");
             break;
         case "Controller":
-            window.open("Controller/controller.html", "_self");
+            window.open("Controller/index.html", "_self");
             break;
     }
 
@@ -41,24 +39,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //if all values are set
     if (version && username && room) {
-        /* console.log(version && password && username && room);
-        console.log("all parameters are set"); */
+        //console.log(version && password && username && room);
+        //console.log("all parameters are set"); 
 
         // check if data is up to date and pw matches.
         if (version === dataVersion) {
-            /* console.log("data is up-to-date and password is true"); */
+            //console.log("data is up-to-date and password is true"); 
 
             // automatic redirect
-            /* console.log("redirecting"); */
-            tryRedirect();
+            //console.log("redirecting");
+            //tryRedirect();
         } else {
             //show login form
-            /* console.log("Error: Version out of date or password is wrong"); */
+            //console.log("Error: Version out of date or password is wrong"); 
         }
     } else {
-        /* console.log("Parameters are missing"); */
+        // console.log("Parameters are missing"); 
     }
     setTimeout(() => {
         document.getElementById('main-container').classList.remove("hidden");
     }, 200);
+
+
 });

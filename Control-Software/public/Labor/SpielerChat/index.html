@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<!-- Version 22 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style content -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- Scripts (more at the bottom of the file.) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="script.js"></script>
+
+    <title>SEK Einsatzzentrale</title>
+</head>
+
+<body>
+    
+
+    <!-- Chatverlauf -->
+    <section id="chat-verlauf" class="chat-main">
+        <div class="container">
+
+            <!-- Neue Nachrichten werden hier erscheinen. (Before #typing) -->
+
+            <div id="typing" class="message they hidden">
+                <p id="typing-anim" class="they">...</p>
+            </div>
+        </div>
+    </section>
+
+    
+            <br>
+            <div id="chat-form-container">
+                <form id="chat-form">
+                    <input id="msg" type="text" placeholder="Frage stellen..." required autocomplete="off" />
+                    <button class="btn"><i class="fas fa-paper-plane"></i> Senden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="notification-container">
+        <div><p class="notification hidden" id="network-notify">&#9888; Verbindungsfehler!</p></div>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+
+</html>

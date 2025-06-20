@@ -44,11 +44,16 @@ function updateStatus(room, newStatus) {
 
 function import_settings(room) {
     if (fs.existsSync(SETTINGS_FILE+room+".json")) {
-            const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
-//Problem!!!!!!!!!!!!!!
-// Look for something like settings.values that outputs alle the values in order in a List without needing the keys
-            return [settings["sender-mail"], settings["sender-password"], settings["receiver-mail"], settings["receiver-password"], settings["ip-spycam"], settings["ip-gamemastercam"]];
+        const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
+    //Problem!!!!!!!!!!!!!!
+    // Look for something like settings.values that outputs alle the values in order in a List without needing the keys
+       var values = Object.keys(settings).map(function(key){
+            return settings[key];
+        });
+
         
+
+        return values; 
     } else {
         console.error("no settings found...");
     }
@@ -232,9 +237,9 @@ io.on('connection', socket => {
             var spawn1 = require("child_process").spawn;
             var spawn2 = require("child_process").spawn;
 
-            const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(user.room);
-            const shellcode1 = `from video-stream import StartStream; StartStream("${ip_spycam}", "public/Controller/Stream1/output.m3u8")`;
-            const shellcode2 = `from video-stream import StartStream; StartStream("${ip_gamemastercam}", "public/Controller/Stream2/output.m3u8")`;
+            const [ip_1, ip_2 ]= import_settings(user.room).slice(-2);
+            const shellcode1 = `from video-stream import StartStream; StartStream("${ip_1}", "public/Controller/Stream1/output.m3u8")`;
+            const shellcode2 = `from video-stream import StartStream; StartStream("${ip_2}", "public/Controller/Stream2/output.m3u8")`;
 
         
             var process1 = spawn1('python',['-u', '-'], {stdio: ['pipe', 'pipe', 'inherit']});
@@ -261,13 +266,7 @@ io.on('connection', socket => {
         }
     });
 
-    // Listen for Chat Messages
-    socket.on('chatMessage', msg => {
-        const user = getCurrentUser(socket.id);
-        if (user) {
-            io.to(user.room).emit('message', formatMessage(user.username, msg));
-        }
-    });
+    
 
     
 
@@ -295,6 +294,15 @@ io.on('connection', socket => {
             console.error("no settings found...");
         }
 
+    });
+
+
+    // Listen for Chat Messages
+    socket.on('chatMessage', msg => {
+        const user = getCurrentUser(socket.id);
+        if (user) {
+            io.to(user.room).emit('message', formatMessage(user.username, msg));
+        }
     });
 
     // Listen for Polizeichat choices
