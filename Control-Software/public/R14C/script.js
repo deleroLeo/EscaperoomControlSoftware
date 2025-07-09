@@ -1,4 +1,4 @@
-const chatWindow = document.getElementById('chat-window');
+/*const chatWindow = document.getElementById('chat-window');
 const chatLog = document.getElementById('chat-log');
 const chatForm = document.getElementById('chat-form');
 
@@ -8,7 +8,7 @@ const btn_03 = document.getElementById('bombe');
 
 const btn_04 = document.getElementById('start');
 const btn_05 = document.getElementById('drohung');
-const btn_06 = document.getElementById('bombe');
+const btn_06 = document.getElementById('bombe');*/
 
 var currentStatus = 1;
 
@@ -33,11 +33,11 @@ var disconnectReason = "unbekannt";
 var disconnectCounter = 0;
 
 // Join chatroom on connection.
-socket.on('connect', () => {
+/*socket.on('connect', () => {
     socket.emit('joinRoom', { username, room });
-    socket.emit('startStreams', (room));
+    socket.emit('startStreams', (room));*/
     /* console.log('connecting'); */
-    if (socket.connected) {
+/*    if (socket.connected) {
         let notify = document.getElementById("network-notify");
         notify.innerHTML = "&#9888; Verbindung wird wieder hergestellt.";
         setTimeout(() => {
@@ -92,10 +92,10 @@ socket.on('message', (message) => {
     nameSpan.innerHTML = message.username;
 
     const textSpan = document.createElement('span');
-    textSpan.classList.add('meta');
+    textSpan.classList.add('meta');*/
     /* p.innerText = `${message.time} `;
     p.innerHTML += message.username; */
-    textSpan.innerText = `:  ${message.text}`;
+/*    textSpan.innerText = `:  ${message.text}`;
 
     p.appendChild(timeSpan);
     p.appendChild(nameSpan);
@@ -193,6 +193,7 @@ chatForm.addEventListener('submit', (e) => {
     e.target.elements.msg.focus();
 });
 
+*/
 
 
 function updateStatus(newStatus) {
@@ -284,42 +285,42 @@ function updateCountdown() {
 
 
 const checkboxHints = [
-    'Start Tipp: Bringen Sie jetzt das Paket ins Spiel.',
-    "", //01
-    "", //02
-    "", //03
-    "", //04
-    "", //05
-    '06 Tipp: Klicken Sie jetzt auf "Wir beobachten euch".',
-    "07 Tipp: Senden Sie jetzt das Foto.",
-    "08 Tipp: Das Lösungswort steht seitlich auf dem Netzteil. Bringen Sie den Bombenkoffer ins Spiel. Passen Sie auf, dass Netzteil und Bombe nicht auseinandergenommen werden.",
-    '09 Tipp: Klicken Sie jetzt auf "Bombe gescheitert". Senden Sie dann den Morsecode.',
-    "",
-    //"11 Tipp: Der Anschlagsort muss OBEN im Polizeichat in ein Fenster eingegeben und abgeschickt werden.",
-    "",
-    "",
+    'Start Tipp: Setzen sie nachdem die Spieler*innen sich zurechtgefunden haben einen ersten Funkspruch ab, sodass sie die Funktion des Funkgeräts verstehen',
+    "", //Heissen Draht befreit
+    "Spieler*innen darauf hinweisen, dass sie die Klappe aushängen können", //Heissen Draht in Stromding gesteckt
+    "Beim Roborätsel brauchen einige Spieler*innen intensives Coaching. Nach der Lösung des ROborätsels sollten wenn möglich noch 30min über sein.", //Elektronikverbindung hergestellt
+    "Manchmal brauchen Spieler*innen einen kleinen stupps, dass sie die Flügelschrauben vom Airlock abmontieren dürfen", //Roborätsel gelöst
+    "Spieler*innen müssen manchmal darauf hingewiesen werden, dass es noch eine Kopfhörerbuchse im Airlock gibt", //Türcodemodul-Sicherheitsklappe abmontiert
+    '', //Kopfhörerbuchse gefunden
+    "", //Tonreihe in Farben umgewandelt
+    "Der Binärcode macht manchen Spieler*innen schwierigkeiten in Schalterpositionen umzuwandeln. Hier hinweisen, dass oben 1 und unten 0 ist.", //Farben in Codetabelle angewandt
+    'Manche Spieler*innen vergessen den Open-Button zu drücken', //Türcodemodul richtig eingestellt
+    "", //Airlockbutton gedrückt
+    
 ];
 
 
-const bAllowHints = true;
+/*const bAllowHints = true;*/
 
 /* called when a checkbox is checked */
 function showCheckboxHint(id) {
-    if (bAllowHints) {
-        let selector = "step-" + id.toString();
-        let checkbox = document.getElementById(selector)
-        if (checkbox.checked == true) {
-            displayHint(checkboxHints[id]);
-        }
+    
+    let selector = "step-" + id.toString();
+    let checkbox = document.getElementById(selector)
+    if (checkbox.checked == true) {
+        displayHint(checkboxHints[id]);
     }
 }
 
 /* displays the given hint string if not empty*/
 function displayHint(hint) {
 	if (!(hint === "")) {
-		const div = document.createElement('div');
-		div.classList.add('message');
-		div.classList.add('hint');
+		const div = document.getElementById('Hinweisfeld');
+		/*div.classList.add('message');
+		div.classList.add('hint');*/
+        div.textContent = '';
+        div.classList.remove("hidden");
+        
 		
 		const p = document.createElement('p');
 		p.classList.add('meta');
@@ -327,9 +328,9 @@ function displayHint(hint) {
 		p.innerText = hint;
 
 		div.appendChild(p);
-		chatLog.appendChild(div);
+		/*chatLog.appendChild(div);*/
 	}
-	scrollMessageLog();
+	/*scrollMessageLog();*/
 }
 
 function settings(opened){

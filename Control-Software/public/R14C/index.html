@@ -44,75 +44,65 @@
             <!-- Progress Checklist for Game Master -->
             <div id="progress-list">
                 <div class="btn-center">
-					<button class="btn wide" id="start" onclick="updateStatus(1)">Darkchat: "Spielstart"</button> 
-				</div>
-                <label class="check-container">01 Kartenstück in Kiste
+					<button class="btn wide" id="start" onclick="updateStatus(1)">"Spielstart"</button> 
+				</div> 
+                <label class="check-container">Heissen Draht Befreit
                     <input type="checkbox" class="prog-check" id="step-1" onclick="showCheckboxHint(1)">
                     <span class="checkmark"></span>
                 </label> 
 
-                <label class="check-container">02 Kartenstück im Koffer
+                <label class="check-container">Heissen Draht in Stromding gesteckt
                     <input type="checkbox" class="prog-check" id="step-2" onclick="showCheckboxHint(2)">
                     <span class="checkmark"></span>
                 </label>
 
-                <label class="check-container">03 Kartenstück auf Desktop
+                <label class="check-container">Elektronikverbindungen hergestellt
                     <input type="checkbox" class="prog-check" id="step-3" onclick="showCheckboxHint(3)">
                     <span class="checkmark"></span>
                 </label> 
 
-                <label class="check-container">04 Wiki + Schablone: ballonelite
+                <label class="check-container">Roboterrätsel gelöst
                     <input type="checkbox" class="prog-check" id="step-4" onclick="showCheckboxHint(4)">
                     <span class="checkmark"></span>
                 </label> 
 
-                <label class="check-container">05 Medikamentenpreis: 8,99€
+                <label class="check-container">Türcodemodul-Sicherheitsklappe abmontiert
                     <input type="checkbox" class="prog-check" id="step-5" onclick="showCheckboxHint(5)">
                     <span class="checkmark"></span>
                 </label> 
                 
-                <label class="check-container">06 Wort auf Fotos: manipulation
+                <label class="check-container">Kopfhörerbuchse gefunden
                     <input type="checkbox" class="prog-check" id="step-6" onclick="showCheckboxHint(6)">
                     <span class="checkmark"></span>
                 </label> 
-				<div class="btn-center">
+				<!--<div class="btn-center">
 					<button class="btn wide" id="drohung" onclick="updateStatus(2)">Darkchat: "Wir beobachten
                     euch"</button>
-				</div>
-                <label class="check-container">07 Influencerin: ts mauf
+				</div>-->
+                <label class="check-container">Tonreihe in Farben umgewandelt
                     <input type="checkbox" class="prog-check" id="step-7" onclick="showCheckboxHint(7)">
                     <span class="checkmark"></span>
                 </label> 
-				<div class="btn-center">
+				<!--<div class="btn-center">
 					<button id="photo-btn" class="btn wide" onclick="sendSpyCamPic()">SpyCam Foto Senden</button>
-				</div>
-                <label class="check-container">08 Überw.kamera-NR: ai-ip100
+				</div> -->
+                <label class="check-container">Farben in Codetabelle angewendet
                     <input type="checkbox" class="prog-check" id="step-8" onclick="showCheckboxHint(8)">
                     <span class="checkmark"></span>
                 </label> 
 
-                <label class="check-container">09 Scherbenbotschaft: bkwb
+                <label class="check-container">Türcodemodul richtig eingestellt
                     <input type="checkbox" class="prog-check" id="step-9" onclick="showCheckboxHint(9)">
                     <span class="checkmark"></span>
                 </label> 
-				<div class="btn-center">
+				<!--<div class="btn-center">
 					<button class="btn wide" id="bombe" onclick="updateStatus(3)">Darkchat: "Bombe gescheitert"</button>
 				</div>
 				<div class="btn-center">
 					<button id="morse-btn" class="btn wide" onclick="sendMorseCode()">Morsecode Senden</button>
-				</div>
-                <label class="check-container">10 Morsecode: attacke
+				</div> -->
+                <label class="check-container">Airlockbutton gedrückt
                     <input type="checkbox" class="prog-check" id="step-10" onclick="showCheckboxHint(10)">
-                    <span class="checkmark"></span>
-                </label> 
-
-                <label class="check-container">11 Rätsel-Kombi: ir7idn1ftw
-                    <input type="checkbox" class="prog-check" id="step-11" onclick="showCheckboxHint(11)">
-                    <span class="checkmark"></span>
-                </label> 
-
-                <label class="check-container">12 Anschlagsort: Bad Bodenteich
-                    <input type="checkbox" class="prog-check" id="step-12" onclick="showCheckboxHint(12)">
                     <span class="checkmark"></span>
                 </label> 
             </div>
@@ -178,7 +168,7 @@
 			<div class="btn-container">
 				<button id="photo-btn" class="btn status" onclick="">Nebelmaschine</button>
 				<button id="morse-btn" class="btn status" onclick="">Nebel-Boxen</button>
-                <button id="mail-reset-btn" class = "btn status" onclick = "">Lüftung</button>	
+                <button id="mail-reset-btn" class = "btn status" onclick = "">Lüftung on/off</button>	
 			</div>
 			
 			<h2>Ambiente</h2>
@@ -187,12 +177,33 @@
 				<button class="btn status" id="drohung_02" onclick="">Geräusche</button>
 				<button class="btn status" id="bombe_02" onclick="">Rütteln</button>
 			</div>
+            <h2>Bug-Fixes</h2>
+			<div class="btn-container">
+				<button class="btn status" id="start_02" onclick="">Elektroklappe neu öffnen</button> 
+				<button class="btn status" id="drohung_02" onclick="">3min extra Zeit</button>
+			</div>
 			
 			
 		</div>
 		
-		
+	
+
+        <div class= "hint-section">
+            <div class="section-head">
+                <h2>Spielleiter-Hinweise</h2>
+            </div>
+            <div class = "hint-container">
+                <div id = "Hinweisfeld" class = " Hinweisfeld">
+                    
+                </div>
+            </div>
+
+            
+	    </div>
     </div>
+
+    
+
 
 
     <div id="notification-container">
@@ -218,14 +229,7 @@
 				<label class = "settings-label " for="Cam2">Adresse Cam 2:</label>					
 				<input class = "settings-input " name = "Cam2" id="Cam2" type="text" placeholder="Web-Adresse Camera 2" required autocomplete="off" />
 				</div>
-                <div>
-				<label class = "settings-label " for="Cam3">Cam 3</label>
-				<input class = "settings-input " name = "Cam3" id="Cam3" type="text" placeholder="Web-Adresse Camera 3" required autocomplete="off" />
-				</div>
-				<div>
-				<label class = "settings-label " for="Cam4">Cam 4</label>					
-				<input class = "settings-input " name = "Cam4" id="Cam4" type="text" placeholder="Web-Adresse Camera 4" required autocomplete="off" />
-				</div>
+                
 
 		<div class="centered full-width">
 			<button type = "submit" id = "setting-submit" class = "btn submit" >Submit</button>

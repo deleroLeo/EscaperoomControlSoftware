@@ -80,8 +80,8 @@ input[type=number]{
     gap: 10px 10px; 
     grid-template-areas: 
       ". progress-section camera-section status-section ."
-      ". progress-section camera-section chat-section ."
-      ". tools-section camera-section chat-section ."; 
+      ". progress-section camera-section status-section ."
+      ". tools-section camera-section hint-section ."; 
   }
   
 .progress-section { 
@@ -96,6 +96,19 @@ input[type=number]{
 
       user-select: none;
 }
+
+.hint-section { 
+      grid-area: hint-section;
+
+      background-color: var(--clr--orange-matt);
+
+      border: 2px solid var(--clr-primary-900);
+      border-radius: var(--brdr-rad);
+
+      padding: 5px 20px;
+
+}
+
 /* Needs work! */
 div.progress-section label, button{
     user-select: none;
@@ -461,6 +474,19 @@ p.notification{
 .Stream{
     max-width: 30%;
 }
+
+
+/* ----------  Hint Section  ---------- */
+
+.hint-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px 20px;
+    height: 60px;
+    text-align: center;
+    overflow: hidden;
+}
+
 
 /* ----------  Setting_popup Section  ---------- */
 .settings-container{
