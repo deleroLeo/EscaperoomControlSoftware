@@ -33,11 +33,11 @@ var disconnectReason = "unbekannt";
 var disconnectCounter = 0;
 
 // Join chatroom on connection.
-/*socket.on('connect', () => {
+socket.on('connect', () => {
     socket.emit('joinRoom', { username, room });
-    socket.emit('startStreams', (room));*/
+    socket.emit('startStreams', (room));
     /* console.log('connecting'); */
-/*    if (socket.connected) {
+    if (socket.connected) {
         let notify = document.getElementById("network-notify");
         notify.innerHTML = "&#9888; Verbindung wird wieder hergestellt.";
         setTimeout(() => {
@@ -64,7 +64,7 @@ socket.on('disconnect', (reason) => {
 //Receives a regular chat message.
 
 //COMMUNICATION-CHAT
-socket.on('message', (message) => {
+/*socket.on('message', (message) => {
     //outputMessage(message);
 
     //custom ouput message to highlight Player Messages.
@@ -195,9 +195,21 @@ chatForm.addEventListener('submit', (e) => {
 
 */
 
+function openElectroHatch(){
+    socket.emit('ElectroHatch', 0);
+}
 
-function updateStatus(newStatus) {
-    socket.emit('update-status', newStatus);
+function Nebel() {
+    socket.emit('Nebel', 1);
+}
+
+function sounds() {
+    socket.emit('Sounds', 1);
+}
+
+
+function updateVentilation(newStatus) {
+    socket.emit('update-ventilation', newStatus);
 }
 function sendMorseCode() {
     socket.emit('send-morse', Eroom);
