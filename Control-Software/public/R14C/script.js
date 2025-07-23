@@ -352,7 +352,7 @@ function settings(opened){
 	}
 	if (opened==false){
 		setting_window.classList.remove("hidden");
-    	setting_load(Eroom);
+    	setting_load(room);
 
 		
 	}
@@ -368,21 +368,21 @@ document.getElementById('settings-form').addEventListener('submit', async (e) =>
 	const formData = new FormData(e.target);
 	const settings = Object.fromEntries(formData.entries());
 	console.log('saving-in progress');
-    socket.emit('settings-save', ({Eroom, settings}) );
+    socket.emit('settings-save', ({room, settings}) );
   });
 
 
 
 function setting_load(){
     console.log("loading in process");
-	socket.emit('settings-load', Eroom);
+	socket.emit('settings-load', room);
 
     socket.on('settingLog', (settings) => {
         	
 	document.getElementById("Cam1").value = settings.text["Cam1"];
     document.getElementById("Cam2").value = settings.text["Cam2"];
-    document.getElementById("Cam3").value = settings.text["Cam3"];
-    document.getElementById("Cam4").value = settings.text["Cam4"];
+    //document.getElementById("Cam3").value = settings.text["Cam3"];
+    //document.getElementById("Cam4").value = settings.text["Cam4"];
 	
 
     });

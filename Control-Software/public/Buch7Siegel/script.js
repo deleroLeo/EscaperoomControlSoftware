@@ -13,7 +13,7 @@ const btn_06 = document.getElementById('bombe');
 var currentStatus = 1;
 
 
-const Eroom = "Buch7Siegel";
+//const room = "Buch7Siegel";
 
 // Load UserData from localStorage
 //let currUsr = localStorage.getItem("username");
@@ -200,14 +200,14 @@ function updateStatus(newStatus) {
     socket.emit('update-status', newStatus);
 }
 function sendMorseCode() {
-    socket.emit('send-morse', Eroom);
+    socket.emit('send-morse', room);
 }
 function sendSpyCamPic() {
-    socket.emit('send-cam', Eroom);
+    socket.emit('send-cam', room);
 }
 
 function resetMails() {
-    socket.emit('mail-reset', Eroom);
+    socket.emit('mail-reset', room);
 }
 
 // Output message to DOM
@@ -340,7 +340,7 @@ function settings(opened){
 	}
 	if (opened==false){
 		setting_window.classList.remove("hidden");
-    	setting_load(Eroom);
+    	setting_load(room);
 
 		
 	}
@@ -356,14 +356,14 @@ document.getElementById('settings-form').addEventListener('submit', async (e) =>
 	const formData = new FormData(e.target);
 	const settings = Object.fromEntries(formData.entries());
 	console.log('saving-in progress');
-    socket.emit('settings-save', ({Eroom, settings}) );
+    socket.emit('settings-save', ({room, settings}) );
   });
 
 
 
 function setting_load(){
     console.log("loading in process");
-	socket.emit('settings-load', Eroom);
+	socket.emit('settings-load', room);
 
     socket.on('settingLog', (settings) => {
         console.log("RECEIVER-Mail: ", settings.text["receiver-mail"]);
