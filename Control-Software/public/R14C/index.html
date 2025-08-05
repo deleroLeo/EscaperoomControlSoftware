@@ -148,9 +148,11 @@
                     <source src ="http://127.0.0.1:8083/stream/R14C/channel/0/webrtc" />
                 </video>-->
 
-                <iframe id = "video2" class = "video" width="560" height="315" src="http://127.0.0.1:8083/stream/R14C/channel/0/webrtc" frameborder="0" allowfullscreen>
+                <input type="hidden" name="webrtc-url" id="webrtc-url"
+                    value="http://192.168.6.2:8083/stream/R14C/channel/0/webrtc">
 
-                </iframe>
+                <video id="webrtc-video" autoplay muted playsinline controls
+                    style="max-width: 100%; max-height: 100%;"></video>
 				
                 <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 				<script>
