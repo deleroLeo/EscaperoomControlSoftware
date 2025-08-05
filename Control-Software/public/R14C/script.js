@@ -312,8 +312,6 @@ const checkboxHints = [
 ];
 
 
-/*const bAllowHints = true;*/
-
 /* called when a checkbox is checked */
 function showCheckboxHint(id) {
     

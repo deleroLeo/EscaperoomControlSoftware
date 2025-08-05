@@ -238,8 +238,8 @@ io.on('connection', socket => {
             var spawn2 = require("child_process").spawn;
 
             const [ip_1, ip_2 ]= import_settings(user.room).slice(-2);
-            const shellcode1 = `from video-stream import StartStream; StartStream("${ip_1}", "public/${room}/Controller/Stream1/output.m3u8")`;
-            const shellcode2 = `from video-stream import StartStream; StartStream("${ip_2}", "public/${room}/Controller/Stream2/output.m3u8")`;
+            const shellcode1 = `from videoStream import StartStream; StartStream("${ip_1}", "public/${room}/Controller/Stream1/output.m3u8")`;
+            const shellcode2 = `from videoStream import StartStream; StartStream("${ip_2}", "public/${room}/Controller/Stream2/output.m3u8")`;
 
         
             var process1 = spawn1('python',['-u', '-'], {stdio: ['pipe', 'pipe', 'inherit']});

@@ -130,7 +130,8 @@
 			</div>
 			<div id="cam1" class="Stream">
 				<h3>Kamera 1</h3>
-				<video id="video1" class="video" controls autoplay muted></video>
+				<video id="video1" class="video"  controls autoplay muted>
+                </video>
 				<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 				<script>
 				  const video = document.getElementById('video1');
@@ -143,14 +144,17 @@
 			
 			<div id="cam2" class="Stream">
 				<h3>Kamera 2</h3>
-				<video id="video2" class="video" controls autoplay muted></video>
-				<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+				<video id="video2" class="video"  controls autoplay muted>
+
+                </video>
+				
+                <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 				<script>
 				  const video2 = document.getElementById('video2');
 				  const hls2 = new Hls();
 				  hls2.loadSource('Controller/Stream2/output.m3u8');
 				  hls2.attachMedia(video2);
-				</script>
+				</script> 
 			</div>
             
         </div>
