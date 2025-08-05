@@ -144,9 +144,13 @@
 			
 			<div id="cam2" class="Stream">
 				<h3>Kamera 2</h3>
-				<video id="video2" class="video"  controls autoplay muted>
+				<!--<video id="video2" class="video"  controls autoplay muted>
                     <source src ="http://127.0.0.1:8083/stream/R14C/channel/0/webrtc" />
-                </video>
+                </video>-->
+
+                <iframe id = "video2" class = "video" width="560" height="315" src="http://127.0.0.1:8083/stream/R14C/channel/0/webrtc" frameborder="0" allowfullscreen>
+
+                </iframe>
 				
                 <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 				<script>
