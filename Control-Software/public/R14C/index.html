@@ -130,16 +130,11 @@
 			</div>
 			<div id="cam1" class="Stream">
 				<h3>Kamera 1</h3>
-				<video id="video1" class="video"  controls autoplay muted>
-                </video>
-				<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-				<script>
-				  const video = document.getElementById('video1');
-				  const hls = new Hls();
-				  hls.loadSource('Controller/Stream1/output.m3u8');
-				  hls.attachMedia(video);
-				</script>
+				<input type="hidden" name="webrtc-url" id="webrtc-url"
+                    value="http://192.168.6.2:8083/stream/R14C/channel/0/webrtc">
 
+                <video id="webrtc-video" autoplay muted controls
+                    style="max-width: 100%; max-height: 100%;"></video>
 			</div>
 			
 			<div id="cam2" class="Stream">
@@ -148,10 +143,10 @@
                     <source src ="http://127.0.0.1:8083/stream/R14C/channel/0/webrtc" />
                 </video>-->
 
-                <input type="hidden" name="webrtc-url" id="webrtc-url"
-                    value="http://192.168.6.2:8083/stream/R14C/channel/0/webrtc">
+                <input type="hidden" name="webrtc-url2" id="webrtc-url2"
+                    value="http://192.168.6.2:8083/stream/R14C/channel/1/webrtc">
 
-                <video id="webrtc-video" autoplay muted playsinline controls
+                <video id="webrtc-video2" autoplay muted controls
                     style="max-width: 100%; max-height: 100%;"></video>
 				
                 <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>

@@ -86,6 +86,25 @@ function updateCamStatus(room, newStatus) {
     camMap.set(room, newStatus);
 }
 
+function updateCamSettings(room, ip, channel) {
+    fetch(`http://admin:EXITmobil@127.0.0.1:8083/stream/${room}/channel/${channel}edit`, {
+    method: "POST",
+    body: JSON.stringify({
+                      "name": "ch1",
+                      "url": ip,
+                      "on_demand": true,
+                      "debug": false,
+                      "status": 0
+                  }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+}
+
+
 app.use(express.json());
 
 
@@ -229,7 +248,7 @@ io.on('connection', socket => {
     });
 
 
-    socket.on('startStreams', (room) =>  {
+    /*socket.on('startStreams', (room) =>  {
         const user = getCurrentUser(socket.id);
         if (user) {
             //Eventuell kann man hier die Streams auch durch das import_settings ding cooler machen indem man durch eine Liste iteriert
@@ -264,7 +283,7 @@ io.on('connection', socket => {
             
             io.to(user.room).emit('server-log', formatMessage(botName, `Kamera-Streams gestartet`));
         }
-    });
+    });*/
 
     
 
@@ -276,6 +295,15 @@ io.on('connection', socket => {
         const user = getCurrentUser(socket.id);
 
         fs.writeFileSync(SETTINGS_FILE+room+".json", JSON.stringify(settings, null, 2));
+
+        const IPs= import_settings(user.room).slice(-2);
+
+        let i = 0;
+        for (const ip of IPs){
+            updateCamSettings(room, ip, i);
+            i +=1;
+        } 
+
         
         // Log success
         

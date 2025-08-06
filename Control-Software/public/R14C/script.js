@@ -437,5 +437,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const videoEl = document.querySelector('#webrtc-video')
   const webrtcUrl = document.querySelector('#webrtc-url').value
 
+  const videoE2 = document.querySelector('#webrtc-video2')
+  const webrtcUrl2 = document.querySelector('#webrtc-url2').value
+
+
   startPlay(videoEl, webrtcUrl)
+  startPlay(videoE2, webrtcUrl2)
 })
