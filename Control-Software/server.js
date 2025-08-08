@@ -87,21 +87,41 @@ function updateCamStatus(room, newStatus) {
 }
 
 function updateCamSettings(room, ip, channel) {
-    fetch(`http://admin:EXITmobil@127.0.0.1:8083/stream/${room}/channel/${channel}edit`, {
+    const username = "admin"
+    const password = "EXITmobil"
+    console.log(ip)
+    //console.log(`Basic `+ Buffer.from(`${username}:${password}`, "binary").toString("base64"))
+    fetch(`http://192.168.6.2:8083/stream/${room}/channel/${channel}/edit`, {
     method: "POST",
-    body: JSON.stringify({
-                      "name": "ch1",
-                      "url": ip,
-                      "on_demand": true,
-                      "debug": false,
-                      "status": 0
-                  }),
+    credentials: "include",
+    body: JSON.stringify({name: "ch1",
+            url: `${ip}`,
+            on_demand: true,
+            audio: true,
+            debug: false,
+            status: 0
+            }),
     headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        'Authorization': `Basic `+ Buffer.from(`${username}:${password}`).toString("base64"),
+        "Content-type": "application/json"  
     }
     })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+    //.then((response) => response.json())
+    //.then((json) => console.log(json));
+    .then(async res => {
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Fehler: ${res.status} ${res.statusText} - ${errorText}`);
+  }
+  return res.json();
+})
+.then(data => {
+  console.log('Antwort:', data);
+})
+.catch(err => {
+  console.error('Request fehlgeschlagen:', err.message);
+});
+
 }
 
 
@@ -296,8 +316,9 @@ io.on('connection', socket => {
 
         fs.writeFileSync(SETTINGS_FILE+room+".json", JSON.stringify(settings, null, 2));
 
-        const IPs= import_settings(user.room).slice(-2);
-
+        const IPs= import_settings(room).slice(-2);
+        
+        
         let i = 0;
         for (const ip of IPs){
             updateCamSettings(room, ip, i);
