@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       videoEl.play()
     }
     webrtc.addTransceiver('video', { direction: 'sendrecv' })
+    webrtc.addTrensceiver('audio', {direction: 'sendrecv'})
     webrtc.onnegotiationneeded = async function handleNegotiationNeeded () {
       const offer = await webrtc.createOffer()
 

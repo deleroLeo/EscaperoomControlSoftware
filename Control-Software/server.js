@@ -188,6 +188,15 @@ io.on('connection', socket => {
         }
     });
 
+
+    socket.on('shortActivation', (effect) => {
+        const user = getCurrentUser(socket.id);
+        if (user) {
+            io.to(user.room).emit('shortActivation', effect);
+            //console.log("got activation-Message")
+        }
+    })
+
     // Listen for Controller inputs for Cam and Morse Status
     socket.on('send-morse', (room) => {
         const user = getCurrentUser(socket.id);

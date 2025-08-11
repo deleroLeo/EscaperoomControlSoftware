@@ -36,7 +36,6 @@ var disconnectCounter = 0;
 socket.on('connect', () => {
     socket.emit('joinRoom', { username, room });
     socket.emit('startStreams', (room));
-    /* console.log('connecting'); */
     if (socket.connected) {
         let notify = document.getElementById("network-notify");
         notify.innerHTML = "&#9888; Verbindung wird wieder hergestellt.";
@@ -200,11 +199,11 @@ function openElectroHatch(){
 }
 
 function Nebel() {
-    socket.emit('Nebel', 1);
+    socket.emit('shortActivation', 1);
 }
 
 function sounds() {
-    socket.emit('Sounds', 1);
+    socket.emit('shortActivation', 2);
 }
 
 
