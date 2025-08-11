@@ -399,8 +399,8 @@ document.addEventListener('DOMContentLoaded', function () {
       videoEl.srcObject = event.streams[0]
       videoEl.play()
     }
-    webrtc.addTransceiver('video', { direction: 'sendrecv' })
-    webrtc.addTransceiver('audio', { direction: 'sendrecv' })
+    const webrtcVid = webrtc.addTransceiver('video', { direction: 'sendrecv' });
+    const webrtcAud = webrtc.addTransceiver('audio', { direction: 'sendrecv' });
     webrtc.onnegotiationneeded = async function handleNegotiationNeeded () {
       const offer = await webrtc.createOffer()
 
