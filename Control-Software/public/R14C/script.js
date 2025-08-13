@@ -393,18 +393,18 @@ document.addEventListener('DOMContentLoaded', function () {
         urls: ['stun:stun.l.google.com:19302']
       }],
       sdpSemantics: 'unified-plan'
-    })
+    });
     webrtc.ontrack = function (event) {
-      console.log(event.streams.length + ' track is delivered')
-      videoEl.srcObject = event.streams[0]
-      videoEl.play()
+      console.log(event.streams.length + ' track is delivered');
+      videoEl.srcObject = event.streams;
+      videoEl.play();
     }
     const webrtcVid = webrtc.addTransceiver('video', { direction: 'sendrecv' });
     const webrtcAud = webrtc.addTransceiver('audio', { direction: 'sendrecv' });
     webrtc.onnegotiationneeded = async function handleNegotiationNeeded () {
-      const offer = await webrtc.createOffer()
+      const offer = await webrtc.createOffer();
 
-      await webrtc.setLocalDescription(offer)
+      await webrtc.setLocalDescription(offer);
 
       fetch(url, {
         method: 'POST',
