@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     webrtc.ontrack = function (event) {
       console.log(event.streams.length + ' track is delivered');
-      videoEl.srcObject = event.streams[1];
+      videoEl.srcObject = event.streams[0];
       videoEl.play();
     }
     const webrtcVid = webrtc.addTransceiver('video', { direction: 'sendrecv' });
