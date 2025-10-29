@@ -24,13 +24,10 @@
 
 
 // Load UserData from localStorage
-let currUsr = localStorage.getItem("username");
-let currRoom = localStorage.getItem("room");
+let currUsr = "Spieler"
+let currRoom = "Z-immun";
 // if issues come up with the data, clear it and redirect back to the login page
-if (!(currUsr && currRoom)) {
-    localStorage.clear();
-    window.open("http://abasan.de/", "_self");
-}
+
 // Set username and room to the loaded data.
 const { username, room } = { username: currUsr, room: currRoom };
 
