@@ -380,3 +380,67 @@ function setting_load(){
 
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  function startPlay (videoEl, url) {
+    const webrtc = new RTCPeerConnection({
+      iceServers: [{
+        urls: ['stun:stun.l.google.com:19302']
+      }],
+      sdpSemantics: 'unified-plan'
+    });
+
+    const remoteStream = new MediaStream();
+    videoEl.srcObject = remoteStream;
+
+    webrtc.ontrack = function (event) {
+      console.log(event.streams.length + ' track is delivered');
+      remoteStream.addTrack(event.track);
+      //videoEl.play();
+    }
+    const webrtcVid = webrtc.addTransceiver('video', { direction: 'sendrecv' });
+
+    const webrtcAud = webrtc.addTransceiver('audio', { direction: 'sendrecv' });
+    webrtc.onnegotiationneeded = async function handleNegotiationNeeded () {
+      const offer = await webrtc.createOffer();
+
+      await webrtc.setLocalDescription(offer);
+
+      fetch(url, {
+        method: 'POST',
+        body: new URLSearchParams({ data: btoa(webrtc.localDescription.sdp) })
+      })
+        .then(response => response.text())
+        .then(data => {
+          try {
+            webrtc.setRemoteDescription(
+              new RTCSessionDescription({ type: 'answer', sdp: atob(data) })
+            )
+          } catch (e) {
+            console.warn(e)
+          }
+        })
+    }
+
+    const webrtcSendChannel = webrtc.createDataChannel('rtsptowebSendChannel')
+    webrtcSendChannel.onopen = (event) => {
+      console.log(`${webrtcSendChannel.label} has opened`)
+      webrtcSendChannel.send('ping')
+    }
+    webrtcSendChannel.onclose = (_event) => {
+      console.log(`${webrtcSendChannel.label} has closed`)
+      startPlay(videoEl, url)
+    }
+    webrtcSendChannel.onmessage = event => console.log(event.data)
+  }
+
+  const videoEl = document.querySelector('#webrtc-video')
+  const webrtcUrl = document.querySelector('#webrtc-url').value
+
+  const videoE2 = document.querySelector('#webrtc-video2')
+  const webrtcUrl2 = document.querySelector('#webrtc-url2').value
+
+
+  startPlay(videoEl, webrtcUrl)
+  startPlay(videoE2, webrtcUrl2)
+})
