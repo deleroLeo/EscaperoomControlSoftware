@@ -7,6 +7,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from pathlib import Path
 import cv2
+import base64
 
 from email.header import decode_header
 
