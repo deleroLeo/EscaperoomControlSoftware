@@ -276,49 +276,6 @@ io.on('connection', socket => {
         }
     });
 
-
-    /*socket.on('startStreams', (room) =>  {
-        const user = getCurrentUser(socket.id);
-        if (user) {
-            //Eventuell kann man hier die Streams auch durch das import_settings ding cooler machen indem man durch eine Liste iteriert
-            //und für jedes Listen-Item nen Kamera-Stream staret oder so
-            var spawn1 = require("child_process").spawn;
-            var spawn2 = require("child_process").spawn;
-
-            const [ip_1, ip_2 ]= import_settings(user.room).slice(-2);
-            const shellcode1 = `from videoStream import StartStream; StartStream("${ip_1}", "public/${room}/Controller/Stream1/output.m3u8")`;
-            const shellcode2 = `from videoStream import StartStream; StartStream("${ip_2}", "public/${room}/Controller/Stream2/output.m3u8")`;
-
-        
-            var process1 = spawn1('python',['-u', '-'], {stdio: ['pipe', 'pipe', 'inherit']});
-            process1.stdin.write(shellcode1);
-            process1.stdin.end();
-
-            
-            process1.stdout.on('data', (data) => {
-                console.log('Python output', data.toString());
-                io.to(user.room).emit('server-log', formatMessage(botName, data.toString()));
-            } );
-
-            var process2 = spawn2('python',['-u', '-'], {stdio: ['pipe', 'pipe', 'inherit']});
-            process2.stdin.write(shellcode2);
-            process2.stdin.end();
-
-            
-            process2.stdout.on('data', (data) => {
-                console.log('Python output', data.toString());
-                io.to(user.room).emit('server-log', formatMessage(botName, data.toString()));
-            } );
-            
-            io.to(user.room).emit('server-log', formatMessage(botName, `Kamera-Streams gestartet`));
-        }
-    });*/
-
-    
-
-    
-
-
     socket.on('settings-save', ({room, settings}) =>{
         
         const user = getCurrentUser(socket.id);
