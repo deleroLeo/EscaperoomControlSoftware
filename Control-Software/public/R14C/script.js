@@ -17,7 +17,7 @@ var currentStatus = 1;
 //let currUsr = "localStorage.getItem("username");"
 
 let currUsr = "Controller";
-let currRoom = "Z-immun";
+let currRoom = "R14C";
 // if issues come up with the data, clear it and redirect back to the login page
 /*if (!(currUsr && currRoom)) {
     localStorage.clear();
