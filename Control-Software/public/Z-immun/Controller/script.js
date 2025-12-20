@@ -65,9 +65,7 @@ socket.on('disconnect', (reason) => {
 //COMMUNICATION-CHAT
 socket.on('message', (message) => {
     //outputMessage(message);
-
     //custom ouput message to highlight Player Messages.
-
     const div = document.createElement('div');
     div.classList.add('message');
 	if (message.username == "Controller") {
