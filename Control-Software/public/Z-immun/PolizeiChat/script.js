@@ -24,12 +24,12 @@
 
 
 // Load UserData from localStorage
-let currUsr = "Spieler"
-let currRoom = "Z-immun";
+//let currUsr = "Spieler"
+//let currRoom = "Z-Immun";
 // if issues come up with the data, clear it and redirect back to the login page
 
 // Set username and room to the loaded data.
-const { username, room } = { username: currUsr, room: currRoom };
+const { username, room } = { username: "Spieler", room: "Z-Immun" };
 
 const socket = io();
 
@@ -313,7 +313,9 @@ function showMessage(msgID = -1, bPolice = false, bPlaySound = true) {
         msg = "[GRUPPE]: " + yourMessages[msgID];
     }
     // Share with Controller
-    socket.emit('chatLog', msg);
+    console.log("sendMessage", msg)
+
+    socket.emit('policeLog', msg);
     //scroll down to newest message
     scrollToLatest();
 }

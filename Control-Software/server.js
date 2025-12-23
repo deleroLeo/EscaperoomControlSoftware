@@ -152,17 +152,19 @@ io.on('connection', socket => {
 
         // Send a server-log to the controller on connection. Potentially useful for displaying the rules.
         //socket.emit('server-log', formatMessage(botName, `Willkommen zum Raum ${user.room}!`));
-        if (user.room =="Z-immun"){
+        if (user.room =="Z-Immun"){
             if (user.username === "Controller") {
                 socket.emit('server-log', formatMessage(botName, `Starten Sie den Countdown sobald die Gruppe den Polizeichat geöffnet hat. Der Countdown ist nur ein Anhaltspunkt und hat keinen Effekt auf den Spielverlauf.`));
             }
 
-            // Notifiy the controller via a server-log when a user connects to the room.
-            socket.broadcast.to(user.room).emit('server-log', formatMessage(botName, `${user.username} hat den Raum betreten.`));
-
-            // Share the current room's status with the new user.
-            io.to(user.room).emit('status', getCurrentStatus(user.room));
+            
         }
+
+        // Notifiy the controller via a server-log when a user connects to the room.
+        socket.broadcast.to(user.room).emit('server-log', formatMessage(botName, `${user.username} hat den Raum betreten.`));
+
+        // Share the current room's status with the new user.
+        io.to(user.room).emit('status', getCurrentStatus(user.room));
 
         // Send User and Room info.
         io.to(user.room).emit('roomUsers', {
@@ -200,7 +202,7 @@ io.on('connection', socket => {
     // Listen for Controller inputs for Cam and Morse Status
     socket.on('send-morse', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user && room =="Z-immun") {
+        if (user && room =="Z-Immun") {
             var spawn = require("child_process").spawn;
 
 
@@ -228,7 +230,7 @@ io.on('connection', socket => {
 
     socket.on('send-cam', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user && user.room =="Z-immun") {
+        if (user && user.room =="Z-Immun") {
             var spawn = require("child_process").spawn;
 
 
@@ -254,7 +256,7 @@ io.on('connection', socket => {
 
     socket.on('mail-reset', (room) => {
         const user = getCurrentUser(socket.id);
-        if (user && user.room =="Z-immun") {
+        if (user && user.room =="Z-Immun") {
             var spawn = require("child_process").spawn;
 
 
@@ -321,9 +323,9 @@ io.on('connection', socket => {
     });
 
     // Listen for Polizeichat choices
-    socket.on('chatLog', msg => {
+    socket.on('policeLog', msg => {
         const user = getCurrentUser(socket.id);
-        if (user && user.room =="Z-immun") {
+        if (user && user.room =="Z-Immun") {
             io.to(user.room).emit('policeLog', formatMessage(user.username, msg));
         }
     });

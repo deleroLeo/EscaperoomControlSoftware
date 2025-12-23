@@ -15,8 +15,8 @@ var currentStatus = 1;
 
 
 // Load UserData from localStorage
-let currUsr = localStorage.getItem("username");
-let currRoom = localStorage.getItem("room");
+let currUsr = "Controller";
+let currRoom = "Z-Immun";
 // if issues come up with the data, clear it and redirect back to the login page
 /*if (!(currUsr && currRoom)) {
     localStorage.clear();
