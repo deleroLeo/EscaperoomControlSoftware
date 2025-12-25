@@ -23,8 +23,8 @@ const logger = winston.createLogger({
   transports: [
     new LokiTransport({
       host:"http://192.168.6.2:3100"
-    })
-    //new winston.transports.Console(), // Add other transports if needed
+    }),
+    new winston.transports.Console(), // Add other transports if needed
   ],
 });
 

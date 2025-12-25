@@ -1,20 +1,30 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const client = require("prom-client");
-const socketio = require('socket.io');
+import path from "path";
+import { createServer } from 'http';
+import express from "express";
+import client from "prom-client";
 
+import { Server } from 'socket.io';
 import logger from "./logging.js";
+import fs from "fs";
 
-const fs = require('fs');
+import formatMessage from "./utils/messages.js"
 
-// custom modules in utils folder
-const formatMessage = require('./utils/messages');
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users');
+import {
+    userJoin,
+    getCurrentUser,
+    userLeave,
+    getRoomUsers
+} from './utils/users.js';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server, { pingTimeout: 600000 });
+const server = createServer(app);
+const io = new Server(server);//socketio(server, { pingTimeout: 600000 });
 
 const botName = 'Server';
 
@@ -362,5 +372,5 @@ io.on('connection', socket => {
 });
 
 
-const PORT = 2142 || process.env.PORT;
-server.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+const PORT = process.env.PORT  ||2142;
+server.listen(PORT,"0.0.0.0", () => logger.info(`Server running on port ${PORT}`));
