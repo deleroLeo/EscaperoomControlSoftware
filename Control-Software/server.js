@@ -154,7 +154,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-server.get('/metrics', async (req, res) => {
+app.get('/metrics', async (req, res) => {
 	try {
 		res.set('Content-Type', register.contentType);
 		res.end(await register.metrics());
