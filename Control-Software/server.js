@@ -30,7 +30,7 @@ const io = new Server(server);//socketio(server, { pingTimeout: 600000 });
 
 const botName = 'Server';
 
-const SETTINGS_FILE = path.join(__dirname, "settings" ,'settings');
+const SETTINGS_FILE = path.join(/*__dirname, */"settings" ,'settings');
 
 const register = new client.Registry();
 
@@ -72,9 +72,6 @@ function import_settings(room) {
        var values = Object.keys(settings).map(function(key){
             return settings[key];
         });
-
-        
-
         return values; 
     } else {
         logger.error("no settings found...");
@@ -236,6 +233,8 @@ io.on('connection', socket => {
             var file_path= "10_morsecode.wav";
             var message = "Schaut mal ... dieses Audiofile konnte ich noch aus einem Privatchat abfangen. Eventuell hilft euch das weiter :-)  Grüße Ein Verbündeter";
             const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(room);
+
+            logger.info("Settings output",import_settings(room))
             const shellcode = `from controll_Software import send_mail;send_mail("${receiver_mail}", "${sender_mail}", "${sender_password}", "${subject}", r"${message}", file_path = "${file_path}")`
 
 
@@ -370,6 +369,6 @@ io.on('connection', socket => {
     });
 });
 
-
+console.log(__dirname)
 const PORT = process.env.PORT  ||2142;
 server.listen(PORT,"0.0.0.0", () => logger.info(`Server running on port ${PORT}`));
