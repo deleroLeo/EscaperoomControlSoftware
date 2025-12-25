@@ -22,7 +22,10 @@ const logger = winston.createLogger({
   format: combine(timestamp(), json()),
   transports: [
     new LokiTransport({
-      host:"http://192.168.6.2:3100"
+      host:"http://192.168.6.2:3100",
+      labels: { app: 'escapeServer-logs'},
+      json: true,
+      onConnectionError: (err) => console.error(err)
     }),
     new winston.transports.Console(), // Add other transports if needed
   ],
