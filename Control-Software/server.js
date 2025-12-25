@@ -7,6 +7,8 @@ import { Server } from 'socket.io';
 import logger from "./logging.js";
 import fs from "fs";
 
+import {spawn} from 'child_process'
+
 import formatMessage from "./utils/messages.js"
 
 import {
@@ -228,7 +230,6 @@ io.on('connection', socket => {
     socket.on('send-morse', (room) => {
         const user = getCurrentUser(socket.id);
         if (user && room =="Z-Immun") {
-            var spawn = require("child_process").spawn;
 
 
             var subject = "Morsecode gehackt";
