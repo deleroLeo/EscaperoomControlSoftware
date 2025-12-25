@@ -36,7 +36,6 @@ const register = new client.Registry();
 
 client.collectDefaultMetrics({
   register: register,
-  prefix: "node_", // * Prefixes the default app metrics name with the specified string
 });
 
 
@@ -68,7 +67,7 @@ function import_settings(room) {
     if (fs.existsSync(SETTINGS_FILE+room+".json")) {
         const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE+room+".json"));
     //Problem!!!!!!!!!!!!!!
-    // Look for something like settings.values that outputs alle the values in order in a List without needing the keys
+    // Look for something like settings.values that outputs alle he values in order in a List without needing the keys
        var values = Object.keys(settings).map(function(key){
             return settings[key];
         });
@@ -153,11 +152,17 @@ app.use(express.json());
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/metrics", async (req, res, next) => {
-  res.setHeader("Content-type", register.contentType);
-  res.send(await register.metrics());
-  next();
+
+
+server.get('/metrics', async (req, res) => {
+	try {
+		res.set('Content-Type', register.contentType);
+		res.end(await register.metrics());
+	} catch (ex) {
+		res.status(500).end(ex);
+	}
 });
+
 
 /* 
  * On connection join a room, send welcome messages and create event listeners to respond to specific message functions.
@@ -370,5 +375,6 @@ io.on('connection', socket => {
 });
 
 console.log(__dirname)
+console.log(SETTINGS_FILE)
 const PORT = process.env.PORT  ||2142;
 server.listen(PORT,"0.0.0.0", () => logger.info(`Server running on port ${PORT}`));
