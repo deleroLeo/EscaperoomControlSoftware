@@ -1,7 +1,10 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
+const client = require("prom-client");
 const socketio = require('socket.io');
+
+import logger from "./logging.js";
 
 const fs = require('fs');
 
@@ -16,6 +19,13 @@ const io = socketio(server, { pingTimeout: 600000 });
 const botName = 'Server';
 
 const SETTINGS_FILE = path.join(__dirname, "settings" ,'settings');
+
+const register = new client.Registry();
+
+client.collectDefaultMetrics({
+  register: register,
+  prefix: "node_", // * Prefixes the default app metrics name with the specified string
+});
 
 
 //To do: Struktur soweit verstehen, dass nicht nur für jeden Raum bei Z-Immun ein unterschiedlicher User angelegt wird, 
@@ -55,7 +65,7 @@ function import_settings(room) {
 
         return values; 
     } else {
-        console.error("no settings found...");
+        logger.error("no settings found...");
     }
     
 }
@@ -89,8 +99,7 @@ function updateCamStatus(room, newStatus) {
 function updateCamSettings(room, ip, channel) {
     const username = "admin"
     const password = "EXITmobil"
-    console.log(ip)
-    //console.log(`Basic `+ Buffer.from(`${username}:${password}`, "binary").toString("base64"))
+    logger.info("CameraIp: ",ip)
     fetch(`http://192.168.6.2:8083/stream/${room}/channel/${channel}/edit`, {
     method: "POST",
     credentials: "include",
@@ -107,7 +116,6 @@ function updateCamSettings(room, ip, channel) {
     }
     })
     //.then((response) => response.json())
-    //.then((json) => console.log(json));
     .then(async res => {
   if (!res.ok) {
     const errorText = await res.text();
@@ -116,10 +124,10 @@ function updateCamSettings(room, ip, channel) {
   return res.json();
 })
 .then(data => {
-  console.log('Antwort:', data);
+  logger.info('Antwort:', data);
 })
 .catch(err => {
-  console.error('Request fehlgeschlagen:', err.message);
+  logger.error('Request fehlgeschlagen:', err.message);
 });
 
 }
@@ -131,8 +139,16 @@ app.use(express.json());
 
 
 
+
+
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get("/metrics", async (req, res, next) => {
+  res.setHeader("Content-type", register.contentType);
+  res.send(await register.metrics());
+  next();
+});
 
 /* 
  * On connection join a room, send welcome messages and create event listeners to respond to specific message functions.
@@ -195,7 +211,6 @@ io.on('connection', socket => {
         const user = getCurrentUser(socket.id);
         if (user) {
             io.to(user.room).emit('shortActivation', effect);
-            //console.log("got activation-Message")
         }
     })
 
@@ -219,7 +234,7 @@ io.on('connection', socket => {
 
             
             process.stdout.on('data', (data) => {
-                console.log('Python output', data.toString());
+                logger.info('Python output', data.toString());
                 io.to(user.room).emit('server-log', formatMessage(botName, data.toString()));
             } );
 
@@ -246,7 +261,7 @@ io.on('connection', socket => {
 
             
             process.stdout.on('data', (data) => {
-                console.log('Python output', data.toString());
+                logger.info('Python output', data.toString());
                 io.to(user.room).emit('server-log', formatMessage(botName, data.toString()));
             } );
             updateCamStatus(user.room, true);
@@ -270,7 +285,7 @@ io.on('connection', socket => {
 
             
             process.stdout.on('data', (data) => {
-                console.log('Python output', data.toString());
+                logger.info('Python output', data.toString());
                 io.to(user.room).emit('server-log', formatMessage(botName, data.toString()));
             } );
             
@@ -308,7 +323,7 @@ io.on('connection', socket => {
                 io.to(user.room).emit('settingLog', formatMessage(user.username, settings));
         }
         } else {
-            console.error("no settings found...");
+            logger.error("no settings found...");
         }
 
     });
@@ -348,4 +363,4 @@ io.on('connection', socket => {
 
 
 const PORT = 2142 || process.env.PORT;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
