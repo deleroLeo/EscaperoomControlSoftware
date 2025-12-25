@@ -257,7 +257,6 @@ io.on('connection', socket => {
     socket.on('send-cam', (room) => {
         const user = getCurrentUser(socket.id);
         if (user && user.room =="Z-Immun") {
-            var spawn = require("child_process").spawn;
 
 
             var subject = "Achtung!";
@@ -283,7 +282,6 @@ io.on('connection', socket => {
     socket.on('mail-reset', (room) => {
         const user = getCurrentUser(socket.id);
         if (user && user.room =="Z-Immun") {
-            var spawn = require("child_process").spawn;
 
 
             const [sender_mail, sender_password, receiver_mail, receiver_password, ip_spycam, ip_gamemastercam ]= import_settings(user.room);
